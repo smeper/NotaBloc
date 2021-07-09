@@ -28,7 +28,6 @@ public class ActualizarNota extends AppCompatActivity {
         setContentView(R.layout.activity_actualizar_nota);
 
         title = getIntent().getStringExtra("titulo");
-        //content = getIntent().getStringExtra("contenido");
         tv_titulo = findViewById(R.id.TextView_tituloNota_Actualizar);
         et_contenido = findViewById(R.id.editText_contenidoNota_Actualizar);
         tv_titulo.setText(title);
@@ -50,7 +49,8 @@ public class ActualizarNota extends AppCompatActivity {
 
     public void actualizarNota(View v){
         String title = tv_titulo.getText().toString().trim();
-        String contenido = et_contenido.getText().toString().trim();
+        String titulo[] = {title};
+        String contenidos = et_contenido.getText().toString().trim();
 
         if(title.isEmpty()){
             Toast.makeText(this, "Introduce el nombre de la nota a buscar. ", LENGTH_LONG).show();
@@ -59,10 +59,11 @@ public class ActualizarNota extends AppCompatActivity {
             datos = new Datos(getApplicationContext(), "Datos", null, 1);
             db = datos.getReadableDatabase();
             try {
-                ContentValues valores = new ContentValues();
-                valores.put("contenido", contenido);
+                ContentValues cv = new ContentValues();
+                cv.put("contenido", contenidos);
+                Toast.makeText(this, "El registro no puede ser modificado", Toast.LENGTH_LONG).show();
 
-                if(db.update("Notas", valores, "titulo ='" + title + "'", null) != -1){
+                if(db.update("Notas", cv, "titulo=?" , titulo) != -1){
                     Toast.makeText(this, "La nota " + title + " ha sido modificada. ", Toast.LENGTH_LONG).show();
                     tv_titulo.setText("");
                     et_contenido.setText("");

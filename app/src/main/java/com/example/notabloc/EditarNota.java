@@ -44,6 +44,7 @@ public class EditarNota extends AppCompatActivity {
                 Intent i = new Intent(lv.getContext(), ActualizarNota.class);
                 i.putExtra("titulo", titulo);
                 startActivity(i);
+                overridePendingTransition(R.anim.transicion_3, R.anim.transicion_4);
             }
         });
     }

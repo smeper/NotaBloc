@@ -48,13 +48,13 @@ public class EliminarNota extends AppCompatActivity {
     }
 
     public void eliminar(String elimino){
-        String[] titulo = {elimino.trim()};
+        String[] titulo = {elimino};
         datos = new Datos(getApplicationContext(), "Datos", null, 1);
         db = datos.getReadableDatabase();
 
         try {
-            //db.execSQL("Delete from Notas where titulo='"+ title +"'");
-            if(db.delete("Notas", "titulo=?", titulo) > 0){
+            //db.execSQL("Delete from Notas where titulo=?", titulo);
+            if(db.delete("Notas", "titulo=?", titulo) != -1){
                 Toast.makeText(this, "La nota " + titulo[0] + " fue eliminada. ", Toast.LENGTH_LONG).show();
                 Intent i = new Intent(this, MainActivity.class);
                 startActivity(i);
